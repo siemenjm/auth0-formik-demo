@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
+import NoPage from './pages/NoPage';
 import Protected from './pages/Protected';
 import Unprotected from './pages/Unprotected';
 
@@ -11,6 +12,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="unprotected-page" element={<Unprotected />} />
         <Route path="protected-page" element={<Protected />} />
+        <Route path="*" element={<NoPage />} />
       </Route>
     </Routes>
   );
