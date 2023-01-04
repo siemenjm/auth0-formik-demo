@@ -1,10 +1,10 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import { Route } from 'react-router-dom';
 
-export default function ProtectedRoute({ component, ...args }) {
+export default function ProtectedRoute({ element, ...args }) {
   return (
     <Route
-      component={withAuthenticationRequired(component, {
+      element={withAuthenticationRequired(element, {
         onRedirecting: () => <h2>Loading...</h2>,
       })}
       {...args}
