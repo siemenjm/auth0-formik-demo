@@ -1,3 +1,7 @@
 export default function NoPage() {
-  return <div>404</div>;
+  return (
+    <main>
+      <h1>404 Page</h1>
+    </main>
+  );
 }

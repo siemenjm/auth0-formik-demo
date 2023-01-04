@@ -1,3 +1,7 @@
 export default function Unprotected() {
-  return <div>Unprotected Page</div>;
+  return (
+    <main>
+      <h1>Unprotected Page</h1>
+    </main>
+  );
 }
