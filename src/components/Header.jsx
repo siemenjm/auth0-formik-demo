@@ -1,14 +1,33 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
+import SignInButton from './SignInButton';
+import SignOutButton from './SignOutButton';
+import UserCard from './UserCard';
 
 export default function Header() {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   return (
     <header>
       <div className={styles.upperHeader}>
-        <h2>Not signed in</h2>
-        <button className={styles.signButton} type="submit">
-          Sign In
-        </button>
+        {isLoading ? (
+          <h2>Signing in...</h2>
+        ) : (
+          <>
+            {isAuthenticated ? (
+              <>
+                <UserCard user={user} />
+                <SignOutButton />
+              </>
+            ) : (
+              <>
+                <h2>Not signed in</h2>
+                <SignInButton />
+              </>
+            )}
+          </>
+        )}
       </div>
       <nav className={styles.lowerHeader}>
         <ul>
