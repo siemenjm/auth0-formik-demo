@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.main > h1 {
+  align-self: center;
+}
+
+.status > span {
+  font-weight: bold;
+  text-transform: uppercase;
+}
