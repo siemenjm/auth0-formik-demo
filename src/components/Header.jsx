@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 import SignInButton from './SignInButton';
 import SignOutButton from './SignOutButton';
+import UserCard from './UserCard';
 
 export default function Header() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -16,7 +17,7 @@ export default function Header() {
           <>
             {isAuthenticated ? (
               <>
-                <h2>Signed In</h2>
+                <UserCard user={user} />
                 <SignOutButton />
               </>
             ) : (
