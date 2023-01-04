@@ -1,3 +1,27 @@
-export function Auth0ProviderWithHistory({ children }) {
-  return <div>auth0_provider_with_history</div>;
+import { Auth0Provider } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
+
+export default function Auth0ProviderWithHistory({ children }) {
+  const navigate = useNavigate();
+  const domain = process.env.REACT_APP_DOMAIN;
+  const clientId = process.env.REACT_APP_CLIENT_ID;
+
+  function onRedirectCallback(appState) {
+    navigate(appState?.returnTo || window.location.pathname);
+  }
+
+  if (!(domain && clientId)) {
+    return null;
+  }
+
+  return (
+    <Auth0Provider
+      domain={domain}
+      clientId={clientId}
+      redirectUri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      {children}
+    </Auth0Provider>
+  );
 }
