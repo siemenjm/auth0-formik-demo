@@ -9,8 +9,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="protected-page" element={<Protected />} />
         <Route path="unprotected-page" element={<Unprotected />} />
+        <Route path="protected-page" element={<Protected />} />
       </Route>
     </Routes>
   );
