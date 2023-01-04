@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
+import SignInButton from './SignInButton';
 
 export default function Header() {
   return (
     <header>
       <div className={styles.upperHeader}>
         <h2>Not signed in</h2>
-        <button className={styles.signButton} type="submit">
-          Sign In
-        </button>
+        <SignInButton />
       </div>
       <nav className={styles.lowerHeader}>
         <ul>
