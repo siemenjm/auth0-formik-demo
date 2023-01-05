@@ -5,12 +5,14 @@ export default function Auth0ProviderWithHistory({ children }) {
   const navigate = useNavigate();
   const domain = process.env.REACT_APP_AUTH0_DOMAIN;
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+  const redirectUri = process.env.REACT_APP_AUTH0_CALLBACK_URL;
+  const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
 
   function onRedirectCallback(appState) {
     navigate(appState?.returnTo || window.location.pathname);
   }
 
-  if (!(domain && clientId)) {
+  if (!(domain && clientId && audience)) {
     return null;
   }
 
@@ -18,8 +20,9 @@ export default function Auth0ProviderWithHistory({ children }) {
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={window.location.origin}
+      redirectUri={redirectUri}
       onRedirectCallback={onRedirectCallback}
+      audience={audience}
     >
       {children}
     </Auth0Provider>
