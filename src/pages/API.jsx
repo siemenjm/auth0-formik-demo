@@ -1,26 +1,37 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
+import { getPublicData } from '../services/message.service';
 import styles from './pages.module.css';
-
-const API_SERVER_URL = process.env.REACT_APP_API_SERVER_URL;
 
 export default function API() {
   const { user, isAuthenticated } = useAuth0();
   const [publicData, setPublicData] = useState(null);
 
-  async function getPublicData() {
-    try {
-      const response = await fetch(API_SERVER_URL + '/api/messages/public');
-      const data = await response.json();
+  // async function getPublicData() {
+  //   try {
+  //     const response = await fetch(API_SERVER_URL + '/api/messages/public');
+  //     const data = await response.json();
 
+  //     setPublicData(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  async function getPublicMessage() {
+    const { data, error } = await getPublicData();
+
+    if (data) {
       setPublicData(data);
-    } catch (error) {
-      console.error(error);
+    }
+
+    if (error) {
+      setPublicData(error);
     }
   }
 
   useEffect(() => {
-    getPublicData();
+    getPublicMessage();
   }, [isAuthenticated]);
 
   return (
