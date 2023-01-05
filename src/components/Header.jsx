@@ -46,6 +46,11 @@ export default function Header() {
               Protected Page
             </Link>
           </li>
+          <li>
+            <Link to={'protected-api'} className={styles.navLink}>
+              Protected API
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>
