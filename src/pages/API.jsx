@@ -1,22 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
-import { getPublicData } from '../services/message.service';
+import { getProtectedData, getPublicData } from '../services/message.service';
 import styles from './pages.module.css';
 
 export default function API() {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+
   const [publicData, setPublicData] = useState(null);
-
-  // async function getPublicData() {
-  //   try {
-  //     const response = await fetch(API_SERVER_URL + '/api/messages/public');
-  //     const data = await response.json();
-
-  //     setPublicData(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+  const [protectedData, setProtectedData] = useState(null);
 
   async function getPublicMessage() {
     const { data, error } = await getPublicData();
@@ -30,9 +21,26 @@ export default function API() {
     }
   }
 
+  async function getProtectedMessage() {
+    const accessToken = await getAccessTokenSilently();
+    const { data, error } = await getProtectedData(accessToken);
+
+    if (data) {
+      setProtectedData(data);
+    }
+
+    if (error) {
+      setProtectedData(error);
+    }
+  }
+
   useEffect(() => {
     getPublicMessage();
-  }, [isAuthenticated]);
+  }, []);
+
+  useEffect(() => {
+    getProtectedMessage();
+  }, [getAccessTokenSilently]);
 
   return (
     <main className={styles.main}>
@@ -48,7 +56,8 @@ export default function API() {
         </span>
         .
       </p>
-      {publicData && publicData.text}
+      {publicData && <p>{publicData.text}</p>}
+      {protectedData && <p>{protectedData.text}</p>}
     </main>
   );
 }

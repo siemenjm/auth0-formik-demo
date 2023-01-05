@@ -35,3 +35,21 @@ export async function getPublicData() {
     error: error || null,
   };
 }
+
+export async function getProtectedData(accessToken) {
+  const URL = `${apiServerUrl}/api/messages/protected`;
+  const config = {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
+  const { data, error } = await getData(URL, config);
+
+  return {
+    data: data || null,
+    error: error || null,
+  };
+}
