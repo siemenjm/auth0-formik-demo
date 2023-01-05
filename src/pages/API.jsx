@@ -17,7 +17,7 @@ export default function API() {
 
   useEffect(() => {
     getPublicData();
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <main className={styles.main}>
