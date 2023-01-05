@@ -9,10 +9,14 @@ export default function API() {
   const [publicData, setPublicData] = useState(null);
 
   async function getPublicData() {
-    const response = await fetch(API_SERVER_URL + '/api/messages/public');
-    const data = await response.json();
+    try {
+      const response = await fetch(API_SERVER_URL + '/api/messages/public');
+      const data = await response.json();
 
-    setPublicData(data);
+      setPublicData(data);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
