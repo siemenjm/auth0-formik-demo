@@ -21,24 +21,24 @@ export default function API() {
     }
   }
 
-  async function getProtectedMessage() {
-    const accessToken = await getAccessTokenSilently();
-    const { data, error } = await getProtectedData(accessToken);
-
-    if (data) {
-      setProtectedData(data);
-    }
-
-    if (error) {
-      setProtectedData(error);
-    }
-  }
-
   useEffect(() => {
     getPublicMessage();
   }, []);
 
   useEffect(() => {
+    async function getProtectedMessage() {
+      const accessToken = await getAccessTokenSilently();
+      const { data, error } = await getProtectedData(accessToken);
+
+      if (data) {
+        setProtectedData(data);
+      }
+
+      if (error) {
+        setProtectedData(error);
+      }
+    }
+
     getProtectedMessage();
   }, [getAccessTokenSilently]);
 
